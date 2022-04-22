@@ -5,16 +5,25 @@
 </template>
 
 <script>
+import {nanoid} from 'nanoid'
 export default {
     name:'MyHeader',
+    props:["addTodo"],
     data() {
       return {
         title:""
       }
-    },
+    }, 
     methods:{
       add(){
-        console.log(this.title)
+        //校验数据
+        if(!this.title) return alert("输入不能为空！")
+        //将用户的输入包装成一个todo对象
+        const todoObj = {id:nanoid(),title:this.title,done:false}
+        //通知App组件去添加一个todo对象
+        this.addTodo(todoObj)
+        //清空输入
+        this.title=''
       }
     }
 }
